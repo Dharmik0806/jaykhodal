@@ -1,0 +1,150 @@
+* {
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+}
+
+.flex-box {
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.head-title{
+    font-size: 25px;
+    text-align: center;
+    color: rgb(34, 34, 77);
+    font-weight: bold;
+    margin-bottom:10px ;
+}
+
+::placeholder {
+    color: rgb(73, 73, 75);
+    padding-left: 10px;
+  }
+
+/* **^*^*^*^*^*^*^*^**^^*^*^^**^*^*^*^**^*^*^*^*^*^*^*^ */
+.errore{
+    color: red;
+}
+#react-form {
+    padding-top: 130px;
+    padding-bottom: 30px;
+    border-bottom: 3px dotted rgb(170, 214, 233);
+}
+
+#sign1{
+    padding-top: 130px;
+    padding-bottom: 30px;
+    border-bottom: 3px dotted rgb(170, 214, 233);
+}
+
+.form-1 {
+    padding: 25px;
+    border: 1px solid grey;
+    box-shadow: -10px 10px 3px rgb(174, 186, 198);
+    border-radius: 10px;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.form-1 input {
+    /* background-color: antiquewhite; */
+    margin: 5px;
+    outline: none;
+    border: 1px solid grey;
+    border-radius: 3px;
+}
+
+.form-1 .form-box{
+    margin: 5px 5px 0px 5px;
+
+}
+
+.flex-box .phone-feild {
+    /* background-color: aquamarine; */
+    min-width: 380px;
+}
+
+.content {
+    /* color: red; */
+    border: 1px solid gainsboro;
+    padding: 0px 15px;
+    margin: 0px 5px;
+    border-radius: 5px;
+}
+
+/* &&&&&&&&&&&&&&&& react form Btn &&&&&&&&&&&&&&&&&&&&&&& */
+.form-box-btn{ 
+   margin: 0px auto 0px auto;
+}
+
+.form-box-btn a {
+    font-size: 13px;
+    /* color: #fff; */
+    border: 1px solid rgb(11, 11, 11);
+    padding: 12px 25px;
+    display: inline-block;
+    font-weight: 500;
+    transition: all .3s;
+    margin-top: 35px;
+}
+
+.form-box-btn a:hover {
+    background-color: #2a2a2a;
+    color: #fff !important;
+}
+
+/* ************************************ react conditional renderering form 2 signup signin forgat pass */
+.form-box-btn a {
+    font-size: 13px;
+    border: 1px solid rgb(11, 11, 11);
+    padding: 10px 40px;
+    display: inline-block;
+    font-weight: 500;
+    transition: all .3s;
+    margin-top: 20px;
+}
+
+/* *************************************** Sign up form 2 conditional rendering  *******************************************/
+
+
+/* #sign2{
+    padding-top: 80px;
+    padding-bottom: 30px;
+    border-bottom: 3px dotted rgb(170, 214, 233);   
+} */
+.sign2_container{
+    max-width: 450px;
+}
+
+.form-2 {
+    padding: 25px;
+    border: 1px solid grey;
+    box-shadow: -10px 10px 3px rgb(174, 186, 198);
+    border-radius: 10px;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.form-link{
+    margin-top: 10px;
+}
+
+/* *************************************************** matriyal ui signinform css   ************************************************** */
+.form-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-flex{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px solid rgb(107, 110, 107);
+    padding: 30px 30px;
+    border-radius: 5px;
+    box-shadow: -10px 10px 8px gainsboro;
+}
