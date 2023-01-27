@@ -11,9 +11,23 @@ import * as yup from 'yup';
 import { Form, Formik, useFormik } from 'formik';
 import { Checkbox, Chip, Divider, FormControlLabel } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
-
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 function Medision(props) {
+    const [did , setDid] =useState();
+    // dialog
+    const [dopen, setDOpen] = React.useState(false);
+
+    const handleDClickOpen = () => {
+        setDOpen(true);
+    };
+
+    const handleDClose = () => {
+        setDOpen(false);
+    };
+    // **
+
 
     const [MedData, setMedData] = useState([]);
 
@@ -25,26 +39,57 @@ function Medision(props) {
         }
     }, [])
 
+    const hendelDelet = () => {
+        // console.log(rData);
+        let localData = JSON.parse(localStorage.getItem("medicine"));
+
+        let dData = localData.filter((l) => l.id !== did);
+
+        localStorage.setItem("medicine", JSON.stringify(dData));
+        setMedData(dData)
+
+        handleDClose();
+        setDid();
+
+    }
     const columns = [
         { field: 'id', headerName: 'ID', width: 70 },
         { field: 'Mname', headerName: 'First name', width: 130 },
-        { field: 'qua', headerName: 'qua', width: 130 }
+        { field: 'qua', headerName: 'qua', width: 130 },
+        { field: 'price', headerName: 'Price', width: 130 },
+        {
+            field: 'Action',
+            headerName: 'Action',
+            renderCell: (params) => {
+                return (
+                    <>
+                    {/* <IconButton aria-label="delete" onClick={() => { hendelDelet(params.row) }}> */}
+                        {/* <IconButton aria-label="delete" onClick={() => {handleDClickOpen() , setDid(params.row.id) }}> */}
+                         <IconButton  onClick={() => { setDid(params.row.id);  setDOpen(true)}} aria-label="delete">
+                            <DeleteIcon />
+                        </IconButton>
+                    </>
+                )
+            }
+
+        }
     ];
 
     let schema = yup.object().shape({
         Mname: yup.string().required('please enter name'),
-        qua: yup.number().required("please enter quantity").positive().integer()
+        qua: yup.number().required("please enter quantity").positive().integer(),
+        price: yup.number().required("please enter Price").positive().integer()
     });
 
-  
+
 
     const medicineData = (values) => {
         let localData = JSON.parse(localStorage.getItem("medicine"));
 
         // console.log(values);
 
-        let idData =Math.round(Math.random()*1000);
-        let Mdata = {...values ,id : idData}
+        let idData = Math.round(Math.random() * 1000);
+        let Mdata = { ...values, id: idData }
 
 
         if (localData !== null) {
@@ -59,15 +104,18 @@ function Medision(props) {
     const formikobj = useFormik({
         initialValues: {
             Mname: '',
-            qua: ''
+            qua: '',
+            price: ''
         },
 
         validationSchema: schema,
         onSubmit: values => {
             // console.log(values);
             medicineData(values)
+            setOpen(false);
         },
     });
+
 
     const { handleChange, handleBlur, handleSubmit, errors, touched, setFieldTouched } = formikobj
     console.log(errors, touched);
@@ -77,6 +125,7 @@ function Medision(props) {
     const handleClickOpen = () => {
         setOpen(true);
     };
+
 
     const handleClose = () => {
         setOpen(false);
@@ -131,7 +180,19 @@ function Medision(props) {
                                 />
                                 {errors.qua !== '' && touched.qua ? <p className='form-error'>{errors.qua}</p> : null}
 
-                              
+                                <TextField
+                                    margin="dense"
+                                    id="price"
+                                    label="price"
+                                    type="number"
+                                    name='price'
+                                    fullWidth
+                                    variant="filled"
+                                    onChange={e => { setFieldTouched('price'); handleChange(e) }}
+                                    onBlur={handleBlur}
+                                />
+                                {errors.price !== '' && touched.price ? <p className='form-error'>{errors.price}</p> : null}
+
                                 <DialogActions>
                                     <Button
                                         onClick={handleClose}
@@ -140,15 +201,39 @@ function Medision(props) {
                                         type="submit"
                                     >Add</Button>
                                 </DialogActions>
+
                             </Form>
                         </Formik>
-
                     </DialogContent>
+
 
                 </Dialog>
             </div>
 
-            <div style={{ height: 400, width: '100%' }}>
+            {/* dialog */}
+            <Dialog
+                open={dopen}
+                onClose={handleDClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+               
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        Add midicine
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={hendelDelet}>Disagree</Button>
+                    <Button onClick={() => hendelDelet()} autoFocus>
+                        Agree
+                    </Button>
+                </DialogActions>
+            </Dialog>
+            {/* **** */}
+
+
+            <div style={{ height: 400, width: '50%', margin: '0px auto 0px auto' }}>
                 <DataGrid
                     rows={MedData}
                     columns={columns}
@@ -163,3 +248,5 @@ function Medision(props) {
 }
 
 export default Medision;
+
+{/* <IconButton aria-label="delete" onClick={() => { hendelDelet(params.row) }}> */}
