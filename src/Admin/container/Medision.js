@@ -13,8 +13,10 @@ import { Checkbox, Chip, Divider, FormControlLabel } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
+import ModeEditIcon from '@mui/icons-material/ModeEdit';
 
 function Medision(props) {
+    const [MedData, setMedData] = useState([]);
     const [did , setDid] =useState();
     // dialog
     const [dopen, setDOpen] = React.useState(false);
@@ -29,7 +31,6 @@ function Medision(props) {
     // **
 
 
-    const [MedData, setMedData] = useState([]);
 
     useEffect(() => {
         let localData = JSON.parse(localStorage.getItem("medicine"));
@@ -68,11 +69,16 @@ function Medision(props) {
                          <IconButton  onClick={() => { setDid(params.row.id);  setDOpen(true)}} aria-label="delete">
                             <DeleteIcon />
                         </IconButton>
+
+                        <IconButton  onClick={handleClickOpen} aria-label="delete">
+                            <ModeEditIcon />
+                        </IconButton>
+
                     </>
                 )
             }
-
         }
+       
     ];
 
     let schema = yup.object().shape({
@@ -97,7 +103,7 @@ function Medision(props) {
             localStorage.setItem("medicine", JSON.stringify(localData))
             setMedData(localData)
         } else {
-            setMedData(Mdata)
+            setMedData([Mdata])
             localStorage.setItem("medicine", JSON.stringify([Mdata]))
         }
     }
@@ -131,6 +137,8 @@ function Medision(props) {
         setOpen(false);
     };
 
+    console.log(MedData);
+
     return (
 
         <div>
@@ -144,7 +152,7 @@ function Medision(props) {
                 </div>
 
 
-                <Dialog open={open} onClose={handleClose} >
+                <Dialog open={open} onClose={handleClose}  sx={{ border: "5px solid blue" , width:"700px"}}>
                     <DialogTitle>Add medicine</DialogTitle>
                     <Divider>
                         <Chip label="Add medicine" />
@@ -233,7 +241,7 @@ function Medision(props) {
             {/* **** */}
 
 
-            <div style={{ height: 400, width: '50%', margin: '0px auto 0px auto' }}>
+            <div style={{ height: 400, width: '80%', margin: '0px auto 0px auto' }}>
                 <DataGrid
                     rows={MedData}
                     columns={columns}
